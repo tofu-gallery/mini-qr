@@ -4,16 +4,7 @@
 
 An app to create beautiful QR codes and scan various QR code types.
 
-<div style="display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px;">
-    <a href="https://esteetey.dev"><img width="100" src="public/presets/lyqht.svg" /></a>
-    <a href="https://www.padlet.com"><img width="100" src="public/presets/padlet.svg" /></a>
-    <a href="https://www.uilicious.com">
-    <img width="100" src="public/presets/uilicious.svg" />
-    </a>
-    <a href="https://www.supabase.com"><img width="100" src="public/presets/supabase-green.svg" /></a>
-    <a href="https://www.vercel.com"><img width="100" src="public/presets/vercel-dark.svg" /></a>
-    <a href="https://viteconf.org/"><img width="100" src="public/presets/viteconf2023.svg" /></a>
-</div>
+<!-- Tofu changed this README: the row of brand preset QR codes that stood here pointed at public/presets/, which this copy removes (see TOFU.md). -->
 
 ## Features
 
