@@ -4,7 +4,7 @@
 
 An app to create beautiful QR codes and scan various QR code types.
 
-<!-- Tofu changed this README: the row of brand preset QR codes that stood here pointed at public/presets/, which this copy removes (see TOFU.md). -->
+<!-- Tofu changed this README on 2026-10-23: the row of brand preset QR codes that stood here pointed at public/presets/, which this copy removes (see TOFU.md). -->
 
 ## Features
 

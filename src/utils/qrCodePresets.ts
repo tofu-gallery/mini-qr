@@ -31,10 +31,10 @@ const defaultPresetOptions = {
   type: 'svg' as DrawType
 }
 
-// Tofu changed this file: this copy ships without the upstream's brand and
-// personal presets (and their logos in src/assets/presets and preview images
-// in public/presets). Plain is the one built-in style; add your own preset to
-// builtInPresets below, or pass a list through VITE_QR_CODE_PRESETS.
+// Tofu changed this file on 2026-10-23: this copy ships without the upstream's
+// brand and personal presets (and their logos in src/assets/presets and preview
+// images in public/presets). Plain is the one built-in style; add your own
+// preset to builtInPresets below, or pass a list through VITE_QR_CODE_PRESETS.
 
 export const plainPreset = {
   ...defaultPresetOptions,
