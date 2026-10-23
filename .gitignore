@@ -37,7 +37,8 @@ playwright-report/
 
 # Storybook
 storybook-static/
-package-lock.json
+# Tofu changed this file: package-lock.json is no longer ignored, because this
+# copy commits it and Tofu builds the app with npm from it.
 
 # Vercel CLI (project link + pulled env) — local only, never commit
 .vercel
