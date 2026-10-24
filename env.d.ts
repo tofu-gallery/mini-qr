@@ -11,6 +11,9 @@ interface ImportMetaEnv {
   readonly VITE_DISABLE_LOCAL_STORAGE?: string
   readonly VITE_QR_CREATE_SIMPLE_FULL_MODE_TOGGLE?: string
   readonly VITE_FIELDS_VISIBLE?: string
+  // Tofu changed this file on 2026-10-24: VITE_SOURCE_URL is where the
+  // "Source code" link points (see src/utils/sourceCode.ts and TOFU.md).
+  readonly VITE_SOURCE_URL?: string
 }
 
 interface ImportMeta {

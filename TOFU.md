@@ -12,8 +12,14 @@ This repository is Tofu's copy of **lyqht/mini-qr** (licence: GPL-3.0), listed i
 - **Root folder:** the repository root.
 - **Install:** `npm install`, from `package-lock.json`.
 - **Build:** `npm run build` (that is `vite build`). **Output directory:** `dist/`.
-- **Environment variables:** none are needed. Leave `VITE_ENABLE_ANALYTICS` unset or `false` (see below). The other `VITE_*` names in `.env.example` are optional upstream settings (credits, default preset and text, preset and frame lists, local storage, simple mode). Do not copy its `BASE_PATH=/mini-qr` line: the app is served from the root of its address, which the default (`./`) already handles.
+- **Environment variables:** none are needed to build. Tofu's gallery sets `VITE_SOURCE_URL` on each copy (see **Source code link** below). Leave `VITE_ENABLE_ANALYTICS` unset or `false` (see below). The other `VITE_*` names in `.env.example` are optional upstream settings (credits, default preset and text, preset and frame lists, local storage, simple mode). Do not copy its `BASE_PATH=/mini-qr` line: the app is served from the root of its address, which the default (`./`) already handles.
 - **Database:** none. The app keeps its settings in the visitor's own browser storage.
+
+## Source code link
+
+- **Setting:** `VITE_SOURCE_URL`, the address the app's **Source code** link opens. When it is unset or empty, the link opens https://github.com/tofu-gallery/mini-qr. When Tofu's gallery copies this app into an account, it saves `VITE_SOURCE_URL` as `https://github.com/tofu-gallery/mini-qr/tree/<commit>`, the exact version that copy runs.
+- **What it shows:** a **Source code** link in the footer on wide screens and in the menu on phones, in each language the app offers. It stays even when `VITE_HIDE_CREDITS` hides the credits: everyone who opens the app receives its code, and GPL-3.0 says they must be able to get the source that goes with it.
+- **If you change the code:** put your changed source where anyone can read it (a public repository is enough) and set `VITE_SOURCE_URL` to that address. Otherwise the link sends people to Tofu's copy, which is not your version. The setting is read when the app is built, so deploy again after changing it.
 
 ## What Tofu changes
 
@@ -27,6 +33,10 @@ Changed on the `tofu` branch on 2026-10-23, on top of upstream commit `fe46504` 
 - **Dated notices.** The notes in the three files above that say Tofu changed them also give the date, 2026-10-23, as GPL-3.0 section 5(a) asks.
 - **Left as upstream wrote them:** `"packageManager": "pnpm@10.0.0"` in `package.json` (Vercel reads it only when `ENABLE_EXPERIMENTAL_COREPACK=1` is set, and would then stop on the mismatch with the npm lockfile, so do not set that variable); `.npmrc`, whose one line (`public-hoist-pattern[]=workbox-window`) is a pnpm setting that a Tofu build never sees, because Tofu's import leaves files named `.npmrc` out, and npm does not need it (it already installs `workbox-window` at the top of `node_modules`, as that line made pnpm do); the social-preview tags in `index.html` (`og:url`, `og:image`, `twitter:image`), which still point at the upstream's own site and GitHub images; and the pnpm commands in `CONTRIBUTING.md`, `lint-staged` and `.github/`, which a Tofu build never runs.
 - **Analytics stay off.** Nothing needed changing: `src/main.js` loads Vercel Web Analytics only when `VITE_ENABLE_ANALYTICS` is `1` or `true`, and nothing in this copy sets it (`.env.example` keeps `VITE_ENABLE_ANALYTICS=false`). Leave it unset or `false`.
+
+Changed on 2026-10-24:
+
+- **Source code link added** (see **Source code link** above). `src/utils/sourceCode.ts` is new and picks the address. `src/components/AppFooter.vue` shows the link, and its footer now stays, with only that link, when `VITE_HIDE_CREDITS` hides the credits; the credits are unchanged and only indented one level deeper. `src/components/MobileMenu.vue` shows the link in the menu, and `env.d.ts` declares `VITE_SOURCE_URL`. The text **Source code** is added, translated, to the 35 locale files that `src/utils/i18n.ts` loads: `bg`, `cs`, `da`, `de`, `el`, `en`, `et`, `fi`, `fr`, `he`, `hu`, `id`, `it`, `ja`, `ko`, `lt`, `lv`, `nb`, `nl`, `no`, `pl`, `pt`, `pt-BR`, `pt-PT`, `ro`, `ru`, `sk`, `sl`, `sv`, `th`, `tr`, `uk`, `vi`, `zh` and `zh-HANS` in `locales/`. The other files in `locales/` are not loaded by the app and are unchanged.
 
 ## Verification
 
@@ -47,14 +57,17 @@ Run on 2026-10-23 on macOS (Apple silicon) with Node 22.22.3 and npm 10.9.8, on 
 
 Not run: `vitest`, the Playwright e2e tests, `vue-tsc` and ESLint. Two e2e comments still name the removed lyqht default preset; those tests set their own colours and logo.
 
+On 2026-10-24, for the **Source code** link, on the files of the commit that added it (exported the same way, without `.npmrc`; this file was written after the check and is not read by the build): `npm ci` passed (884 packages) and `npm run build` passed with the same one warning. The built script carries the link text in all 35 languages and the default address, and a build with `VITE_SOURCE_URL` set carries that address instead. Served on 127.0.0.1 and opened in headless Chromium 1280 and 390 pixels wide, the page shows one **Source code** link (in the footer; on the phone width, in the opened menu) that opens the default address in a new tab, with no console errors and no request leaving 127.0.0.1; a build with `VITE_HIDE_CREDITS=true` shows it too. `vue-tsc` reports 7 errors, all in files Tofu did not change; ESLint and Prettier pass on the files Tofu changed.
+
 ## Still needs a real deploy
 
 - The deploy lands on Tofu's Vercel lane (provider `vercel`) with the Vite preset, and on a Free account it is admitted as the account's one app.
 - Vercel's Linux build runs `npm install` from `package-lock.json` (not pnpm) and gets the Linux builds the lockfile carries (`@rollup/rollup-linux-x64-gnu`, `@esbuild/linux-x64`, `@img/sharp-linux-x64`); the check above ran on macOS.
 - Installing the app from the browser, and scanning with the camera, on the live HTTPS address. Scanning was not tried here.
+- On a copy made by Tofu's gallery, the **Source code** link opening that copy's commit (the `VITE_SOURCE_URL` the copy saves); only the default address was checked here.
 
 ## Licence
 
-GPL-3.0. Licence files and copyright notices stay as they are; every file Tofu changes carries a dated note saying so (`src/utils/qrCodePresets.ts`, `README.md`, `.gitignore`), and the files Tofu added or deleted are listed above.
+GPL-3.0. Licence files and copyright notices stay as they are; every file Tofu changes carries a dated note saying so (`src/utils/qrCodePresets.ts`, `README.md`, `.gitignore`, `src/components/AppFooter.vue`, `src/components/MobileMenu.vue`, `env.d.ts`), except the locale files, which are JSON and cannot hold a comment: they are listed above, with the files Tofu added or deleted.
 
-The modified source of the app Tofu hosts is this public repository, https://github.com/tofu-gallery/mini-qr, at the tag the gallery pins on the `tofu` branch: `pin/2026-10-23.1`. Copies made from the earlier pin, `pin/2026-10-23`, have their source at that tag, which stays in place.
+The modified source of the app Tofu hosts is this public repository, https://github.com/tofu-gallery/mini-qr, at the tag the gallery pins on the `tofu` branch: `pin/2026-10-24`. From that pin on, each copy's **Source code** link opens the exact commit it was made from. Copies made from the earlier pins, `pin/2026-10-23` and `pin/2026-10-23.1`, have their source at those tags, which stay in place.
